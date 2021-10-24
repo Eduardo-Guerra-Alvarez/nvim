@@ -27,6 +27,7 @@ set ignorecase " Ignorar mayusculas al hacer una busqueda"
 set smartcase " No ignorar mayusculas si la palabra a buscar contiene mayusculas"
 set clipboard=unnamedplus "Copiar al portapapeles"
 set encoding=UTF-8
+set smartindent
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -52,6 +53,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Icons
 
+Plug 'ctrlpvim/ctrlp.vim'
+
+
 call plug#end()
 
 set termguicolors
@@ -63,3 +67,17 @@ colorscheme ayu
 
 " Commands
 nnoremap <silent> <C-n> :NERDTreeFocus<CR>
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
