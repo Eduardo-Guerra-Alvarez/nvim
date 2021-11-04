@@ -28,12 +28,15 @@ set smartcase " No ignorar mayusculas si la palabra a buscar contiene mayusculas
 set clipboard=unnamedplus "Copiar al portapapeles"
 set encoding=UTF-8
 set smartindent
+set showmatch " show matching"
+set autowriteall
 
 call plug#begin('~/.config/nvim/plugged')
 
 " Temas
 Plug 'ayu-theme/ayu-vim'
 Plug 'sonph/onehalf'
+
 Plug 'morhetz/gruvbox'
 
 " Buscador de archivos
@@ -51,16 +54,52 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" Multiple cursor
+Plug 'terryma/vim-multiple-cursors'
 " Icons
-
 Plug 'ctrlpvim/ctrlp.vim'
 
+" Color in brackets and different things
+Plug 'frazrepo/vim-rainbow'
+
+" Icons
+Plug 'ryanoasis/vim-devicons'
+
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Show MarkDown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
 set termguicolors
 let ayucolor="dark"
 colorscheme ayu
+hi Normal guibg=NONE ctermbg=NONE
+
+" lightline
+set laststatus=2
+
+set rtp+=/usr/local/opt/fzf
+
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 79,
+      \ 'x': 60,
+      \ 'y': 88,
+      \ 'z': 45,
+      \ 'warning': 80,
+      \ 'error': 80,
+      \ }
+
+" rainbow
+au FileType c,cpp,objc,objcpp call rainbow#load()
+
+" this command auto write when you leave window
+au FocusLost,WinLeave * :silent! w
 
 " Airline
 " let g:airline#extensions#tabline#enabled = 1
@@ -81,3 +120,19 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Mapping of multi cursors
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = 'g<C-n>'
+let g:multi_cursor_select_all_word_key = 'g<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = 'g<C-n>'
+let g:multi_cursor_prev_key            = 'g<C-p>'
+let g:multi_cursor_skip_key            = 'g<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+" Command to color word mistakes in English
+nnoremap <F6> :setlocal spell! spelllang=en<Enter>
