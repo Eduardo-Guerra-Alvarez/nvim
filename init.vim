@@ -7,7 +7,7 @@ set nolist
 set rnu "See relative numbers
 
 " Helps force plug-ins to load correctly when it is turned back on below.
-filetype off
+"filetype off
 
 " Turn on syntax highlighting.
 syntax on
@@ -82,6 +82,9 @@ hi Normal guibg=NONE ctermbg=NONE
 " lightline
 set laststatus=2
 
+" Show always hidden files
+let NERDTreeShowHidden=1
+
 set rtp+=/usr/local/opt/fzf
 
 let g:airline_powerline_fonts = 1
@@ -95,12 +98,15 @@ let g:airline#extensions#default#section_truncate_width = {
       \ 'error': 80,
       \ }
 
+let g:airline_highlighting_cache = 1
+
 " rainbow
-au FileType c,cpp,objc,objcpp call rainbow#load()
+" au FileType c,cpp,objc,objcpp,js,jsx,ts,json,py call rainbow#load()
+
+let g:rainbow_active = 1
 
 " this command auto write when you leave window
-au FocusLost,WinLeave * :silent! w
-
+"au FocusLost,WinLeave * :silent! w
 " Airline
 " let g:airline#extensions#tabline#enabled = 1
 
@@ -120,6 +126,8 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+nmap <silent> ,/ :nohlsearch<CR>
 
 " Mapping of multi cursors
 let g:multi_cursor_use_default_mapping=0
