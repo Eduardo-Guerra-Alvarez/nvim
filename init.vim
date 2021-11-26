@@ -30,6 +30,7 @@ set encoding=UTF-8
 set smartindent
 set showmatch " show matching"
 set autowriteall
+set colorcolumn=120
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -49,6 +50,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Muestra arbol de archivos
 Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
+Plug 'machakann/vim-sandwich'
 
 " Mostrar linea visual
 Plug 'vim-airline/vim-airline'
@@ -87,8 +89,6 @@ let NERDTreeShowHidden=1
 
 set rtp+=/usr/local/opt/fzf
 
-let g:airline_powerline_fonts = 1
-
 let g:airline#extensions#default#section_truncate_width = {
       \ 'b': 79,
       \ 'x': 60,
@@ -99,6 +99,10 @@ let g:airline#extensions#default#section_truncate_width = {
       \ }
 
 let g:airline_highlighting_cache = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_highlighting_cache = 1
+let g:airline_powerline_fonts = 1
 
 " rainbow
 " au FileType c,cpp,objc,objcpp,js,jsx,ts,json,py call rainbow#load()
@@ -107,8 +111,7 @@ let g:rainbow_active = 1
 
 " this command auto write when you leave window
 "au FocusLost,WinLeave * :silent! w
-" Airline
-" let g:airline#extensions#tabline#enabled = 1
+" Airlinei
 
 " Commands
 nnoremap <silent> <C-n> :NERDTreeFocus<CR>
@@ -127,7 +130,32 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-nmap <silent> ,/ :nohlsearch<CR>
+" Config key leader like space
+let mapleader = " "
+nnoremap <leader>fs :Files<CR>
+" No showsearch
+"nmap <leader> n :noh<CR>
+
+" disable up, down, left and right to move in nvim
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+"keys left, right, up and down relize window
+nnoremap <leader><left> :vertical resize -5 <CR> 
+nnoremap <leader><right> :vertical resize +5 <CR> 
+nnoremap <leader><up> :resize +5 <CR> 
+nnoremap <leader><down> :resize -5 <CR>
+
+" move in windows with keys
+nnoremap <silent> <right> <C-w><C-l>
+nnoremap <silent> <left> <C-w><C-h>
+nnoremap <silent> <up> <C-w><C-k>
+nnoremap <silent> <down> <C-w><C-j>
+
+" Move in tabs or buffers
+nnoremap <silent> <tab> gt <CR>
 
 " Mapping of multi cursors
 let g:multi_cursor_use_default_mapping=0
