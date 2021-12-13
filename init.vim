@@ -17,9 +17,9 @@ set number  " Muestra los números de las líneas "
 set mouse=a  " Permite la integración del mouse (seleccionar texto, mover el cursor)"
 set cursorline "Resalta la linea actual"
 " Identacion a 2 espacios
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set shiftround
 set expandtab " Inserta espacios en lugar de tabs
 
@@ -36,9 +36,11 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Temas
 Plug 'ayu-theme/ayu-vim'
-Plug 'sonph/onehalf'
+Plug 'tomasr/molokai'
 
-Plug 'morhetz/gruvbox'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
 
 " Buscador de archivos
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -58,8 +60,6 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Multiple cursor
 Plug 'terryma/vim-multiple-cursors'
-" Icons
-Plug 'ctrlpvim/ctrlp.vim'
 
 " Color in brackets and different things
 Plug 'frazrepo/vim-rainbow'
@@ -104,17 +104,19 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_highlighting_cache = 1
 let g:airline_powerline_fonts = 1
 
-" rainbow
-" au FileType c,cpp,objc,objcpp,js,jsx,ts,json,py call rainbow#load()
-
-let g:rainbow_active = 1
-
 " this command auto write when you leave window
 "au FocusLost,WinLeave * :silent! w
 " Airlinei
 
 " Commands
 nnoremap <silent> <C-n> :NERDTreeFocus<CR>
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusLine = ''
+
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -130,11 +132,20 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+
 " Config key leader like space
 let mapleader = " "
-nnoremap <leader>fs :Files<CR>
-" No showsearch
-"nmap <leader> n :noh<CR>
+
+" Open FZF with ctrl-p
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+        \ 'ctrl-t': 'tab split',
+        \ 'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit'
+        \}
+" Ignore node_modules u others files not necesary
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " disable up, down, left and right to move in nvim
 noremap <up> <nop>
