@@ -52,7 +52,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Muestra arbol de archivos
 Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
-Plug 'machakann/vim-sandwich'
 
 " Mostrar linea visual
 Plug 'vim-airline/vim-airline'
@@ -66,10 +65,6 @@ Plug 'frazrepo/vim-rainbow'
 
 " Icons
 Plug 'ryanoasis/vim-devicons'
-
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 
 " Show MarkDown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -109,6 +104,9 @@ let g:airline_powerline_fonts = 1
 " Airlinei
 
 " Commands
+" Config key leader like space
+let mapleader = " "
+
 nnoremap <silent> <C-n> :NERDTreeFocus<CR>
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
@@ -130,12 +128,9 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <leader> K :call <SID>show_documentation()<CR>
 
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
-
-" Config key leader like space
-let mapleader = " "
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-tsserver']
 
 " Open FZF with ctrl-p
 nnoremap <C-p> :FZF<CR>
@@ -166,7 +161,9 @@ nnoremap <silent> <up> <C-w><C-k>
 nnoremap <silent> <down> <C-w><C-j>
 
 " Move in tabs or buffers
-nnoremap <silent> <tab> gt <CR>
+nnoremap <silent> <tab> :bn <CR>
+nnoremap <silent> <S-tab> :bp <CR>
+nnoremap <leader>d :bd <CR>
 
 " Mapping of multi cursors
 let g:multi_cursor_use_default_mapping=0
