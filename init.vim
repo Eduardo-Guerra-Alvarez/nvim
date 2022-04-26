@@ -69,12 +69,21 @@ Plug 'ryanoasis/vim-devicons'
 " Show MarkDown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" Close tag to HTML
+Plug 'alvan/vim-closetag'
+
+" emmet to HTML, JSX
+Plug 'mattn/emmet-vim'
+
+" Is like GitLens in VsCode
+Plug 'APZelos/blamer.nvim'
+
 call plug#end()
 
 set termguicolors
 let ayucolor="dark"
 colorscheme ayu
-hi Normal guibg=NONE ctermbg=NONE
+hi Normal guibg=#0a0e14 ctermbg=NONE
 
 " lightline
 set laststatus=2
@@ -180,3 +189,71 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 " Command to color word mistakes in English
 nnoremap <F6> :setlocal spell! spelllang=en<Enter>
+
+
+" Close tag configuration
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml,js'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+" Config emmet-vim
+
+let g:user_emmet_leader_key = ','
+" Use emmet with TAB
+"let g:user_emmet_leader_key='<Tab>'
+" Use emmet in ReactJS
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
+
+" Configuration Blamer
+let g:blamer_enabled = 1
+" Disable show in visual modes
+let g:blamer_show_in_visual_modes = 0
+" Disable show in insert modes
+let g:blamer_show_in_insert_modes = 0
+" Show arrow
+let g:blamer_prefix = ' => '
